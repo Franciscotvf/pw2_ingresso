@@ -3,14 +3,15 @@ package br.com.etec.ingresso.ENTITY;
 import br.com.etec.ingresso.ENUMS.CategoriaFilmeEnum;
 import br.com.etec.ingresso.ENUMS.ClassificacaoIndicativaENUM;
 import br.com.etec.ingresso.ENUMS.SimNaoEnum;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
+@AllArgsConstructor //Construtor que pega todos
+@NoArgsConstructor //Construtor
+
 public class Filme {
     private String titulo;
     private Long  id;
