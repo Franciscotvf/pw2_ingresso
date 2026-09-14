@@ -22,22 +22,22 @@ public class FilmeController {
         if (idExistentes.contains(id)) {
             Filme filme1 = Filme.builder().id(1L)
                     .id(1L) // Dado long
-                    .titulo("Matrix")
+                    .nome("Matrix")
                     .classificacao(ClassificacaoIndicativaENUM.A16)
-                    .cartaz(SimNaoEnum.S)
+                    .emCartaz(SimNaoEnum.S)
                     .build();
 
             Filme filme2 = Filme.builder().id(2L)
                     .id(2L)
-                    .titulo("Avatar")
+                    .nome("Avatar")
                     .classificacao(ClassificacaoIndicativaENUM.A18)
-                    .cartaz(SimNaoEnum.S)
+                    .emCartaz(SimNaoEnum.S)
                     .build();
 
             Filme filme3 = Filme.builder().id(3L)
-                    .titulo("Homem aranha: Um novo dia")
+                    .nome("Homem aranha: Um novo dia")
                     .classificacao(ClassificacaoIndicativaENUM.A16)
-                    .cartaz(SimNaoEnum.N)
+                    .emCartaz(SimNaoEnum.N)
                     .build();
 
             return ResponseEntity.ok(filme1);
@@ -48,9 +48,9 @@ public class FilmeController {
     public Filme BuscarPorto(@PathVariable Long id){ //PathVariable para puxar os id
         Filme filme1 = Filme.builder()
                 .id(id)
-                .titulo("Matrix")
+                .nome("Matrix")
                 .classificacao(ClassificacaoIndicativaENUM.A18)
-                .cartaz(SimNaoEnum.S)
+                .emCartaz(SimNaoEnum.S)
                 .build();
         return filme1;
 
