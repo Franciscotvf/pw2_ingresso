@@ -3,7 +3,9 @@ package br.com.etec.ingresso.CONTROLLER;
 import br.com.etec.ingresso.ENTITY.Filme;
 import br.com.etec.ingresso.ENUMS.ClassificacaoIndicativaENUM;
 import br.com.etec.ingresso.ENUMS.SimNaoEnum;
+import br.com.etec.ingresso.REPOSITORY.FilmeRepository;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,51 +13,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Builder
 @RequestMapping("/filmes")
 
-public class FilmeController {
+public class    FilmeController {
+
+    @Autowired
+    private FilmeRepository filmeRepository;
+
 
     List<Long> idExistentes = List.of(1L, 2L, 3L);
     @GetMapping
+    public List<Filme> listar(){
+        return filmeRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
-        if (idExistentes.contains(id)) {
-            Filme filme1 = Filme.builder().id(1L)
-                    .id(1L) // Dado long
-                    .nome("Matrix")
-                    .classificacao(ClassificacaoIndicativaENUM.A16)
-                    .emCartaz(SimNaoEnum.S)
-                    .build();
-
-            Filme filme2 = Filme.builder().id(2L)
-                    .id(2L)
-                    .nome("Avatar")
-                    .classificacao(ClassificacaoIndicativaENUM.A18)
-                    .emCartaz(SimNaoEnum.S)
-                    .build();
-
-            Filme filme3 = Filme.builder().id(3L)
-                    .nome("Homem aranha: Um novo dia")
-                    .classificacao(ClassificacaoIndicativaENUM.A16)
-                    .emCartaz(SimNaoEnum.N)
-                    .build();
-
-            return ResponseEntity.ok(filme1);
+        var filme = filmeRepository.findById(id);
+        if (filme.isPresent()) {
+            return ResponseEntity.ok(filme.get());
         }
+
         return ResponseEntity.notFound().build();
     }
-    @GetMapping("/{id}") //Buscar variavel de filmes através de /{id}
-    public Filme BuscarPorto(@PathVariable Long id){ //PathVariable para puxar os id
-        Filme filme1 = Filme.builder()
-                .id(id)
-                .nome("Matrix")
-                .classificacao(ClassificacaoIndicativaENUM.A18)
-                .emCartaz(SimNaoEnum.S)
-                .build();
-        return filme1;
 
-
-    }
     @PostMapping
     public ResponseEntity<Filme> cadastrar(@RequestBody Filme filme){
         filme.setId(100L);

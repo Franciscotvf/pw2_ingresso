@@ -10,14 +10,15 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor  //Construtor
 @AllArgsConstructor //Construtor que pega todos
-@NoArgsConstructor //Construtor
 @Entity
 @Table(name="TBL_FILME")
 public class Filme {
 
     @Column(name="TX_NOME")
     private String nome;
+
     @Id
     @Column(name="ID_FILME")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
