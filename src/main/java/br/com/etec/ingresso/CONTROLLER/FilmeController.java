@@ -39,19 +39,23 @@ public class    FilmeController {
 
     @PostMapping
     public ResponseEntity<Filme> cadastrar(@RequestBody Filme filme){
-        filme.setId(100L);
+        var novoFilme = filmeRepository.save(filme);
         return ResponseEntity.status(HttpStatus.CREATED).body(filme);
     }
     @PutMapping("/{id}")
     public ResponseEntity<Filme> atualizar(@RequestBody Filme filme, @PathVariable Long id){
-        if(idExistentes.contains(id)){
+        var existe = filmeRepository.findById(id);
+        if(existe.isPresent()){
+            var filmeAtualizar = filmeRepository.save(filme);
             return ResponseEntity.ok(filme);
         }
     return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar (@PathVariable Long id){
-        if(idExistentes.contains(id)) {
+        var existe = filmeRepository.findById(id);
+        if(existe.isPresent()) {
+            filmeRepository.delete(existe.get());
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
