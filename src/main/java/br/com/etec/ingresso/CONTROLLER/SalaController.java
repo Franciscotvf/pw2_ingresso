@@ -48,7 +48,7 @@ public class SalaController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(novaSala);
     }
-
+//exercicio
     @PutMapping("/{id}")
     public ResponseEntity<Sala> atualizar(@RequestBody Sala sala, @PathVariable Long id) {
         var existe = salaRepository.findById(id);
